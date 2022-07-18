@@ -1,5 +1,5 @@
 import os
-from flask import Flask,request,make_response,jsonify
+from flask import Flask,request,jsonify
 import requests
 
 api_url = os.getenv('API_URL')
@@ -7,9 +7,7 @@ app = Flask(__name__)
 
 
 def headers():
-    # return {'Authorization':request.headers.get('Authorization')}
-    return {}
-    # return dict(request.headers)
+    return {'Authorization':request.headers.get('Authorization')}
 
 
 @app.route('/', defaults={'u_path': ''})
