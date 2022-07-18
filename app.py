@@ -43,4 +43,4 @@ def delete_all(u_path):
     return requests.delete(url=url,headers=headers()).content
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
