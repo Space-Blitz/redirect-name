@@ -1,9 +1,10 @@
 import os
 from flask import Flask,request,jsonify
+from flask_cors import CORS
 import requests
 
 api_url = os.getenv('API_URL')
-app = Flask(__name__)
+app = CORS(Flask(__name__))
 
 
 def headers():
