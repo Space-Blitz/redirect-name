@@ -7,40 +7,40 @@ app = Flask(__name__)
 
 
 def headers():
-    return dict(request.headers)
+    return {'Authorization':request.headers.get('Authorization')}
+    # return dict(request.headers)
 
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['get'])
 def get_all(u_path):
     url = api_url+u_path
-    print(url)
-    return requests.get(url=url,data=None,json=None,headers=headers()).content
+    return requests.get(url=url,headers=headers()).content
 
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['post'])
 def post_all(u_path):
-    print(repr(u_path))
-    return "welcomme home post"
+    url = api_url+u_path
+    return requests.post(url=url,headers=headers(),json=request.get_json(force=True)).content
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['put'])
 def put_all(u_path):
-    print(repr(u_path))
-    return "welcomme home put"
+    url = api_url+u_path
+    return requests.post(url=url,headers=headers(),json=request.get_json(force=True)).content
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['patch'])
 def patch_all(u_path):
-    print(repr(u_path))
-    return "welcomme home patch"
+    url = api_url+u_path
+    return requests.patch(url=url,headers=headers(),json=request.get_json(force=True)).content
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['delete'])
 def delete_all(u_path):
-    print(repr(u_path))
-    return "welcomme delete"
+    url = api_url+u_path
+    return requests.delete(url=url,headers=headers()).content
 
 if __name__=='__main__':
     app.run(debug=True)
