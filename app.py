@@ -1,16 +1,21 @@
+import os
+from flask import Flask,request,make_response,jsonify
+import requests
 
-from flask import Flask
-from requests import get,
-
-from flask import Flask
+api_url = os.getenv('API_URL')
 app = Flask(__name__)
+
+
+def headers():
+    return dict(request.headers)
 
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['get'])
 def get_all(u_path):
-    print(repr(u_path))
-    return "welcomme home"
+    url = api_url+u_path
+    print(url)
+    return requests.get(url=url,data=None,json=None,headers=headers()).content
 
 
 @app.route('/', defaults={'u_path': ''})
@@ -38,4 +43,4 @@ def delete_all(u_path):
     return "welcomme delete"
 
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)
