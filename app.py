@@ -4,8 +4,8 @@ from flask_cors import CORS
 import requests
 
 api_url = os.getenv('API_URL')
-app = CORS(Flask(__name__))
-
+app = Flask(__name__)
+CORS(app)
 
 def headers():
     return {'Authorization':request.headers.get('Authorization')}
