@@ -18,9 +18,9 @@ def get_all(u_path):
     try:
         url = api_url+u_path
         response = requests.get(url=url,headers=headers())
-        return jsonify(response.json()),response.status_code
+        return result(response)
     except:
-        return jsonify(response.json()),response.status_code
+        return result(response)
 
 
 @app.route('/', defaults={'u_path': ''})
@@ -30,9 +30,9 @@ def post_all(u_path):
     try:
         url = api_url+u_path
         response = requests.post(url=url,headers=headers(),json=request.get_json(force=True))
-        return jsonify(response.json()),response.status_code
+        return result(response)
     except:
-        return jsonify(response.json()),response.status_code
+        return result(response)
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['put'])
@@ -41,9 +41,9 @@ def put_all(u_path):
     try:
         url = api_url+u_path
         response = requests.put(url=url,headers=headers(),json=request.get_json(force=True))
-        return jsonify(response.json()),response.status_code
+        return result(response)
     except:
-        return jsonify(response.json()),response.status_code
+        return result(response)
 
 
 @app.route('/', defaults={'u_path': ''})
@@ -53,9 +53,9 @@ def patch_all(u_path):
     try:
         url = api_url+u_path
         response = requests.patch(url=url,headers=headers(),json=request.get_json(force=True))
-        return jsonify(response.json()),response.status_code
+        return result(response)
     except:
-        return jsonify(response.json()),response.status_code
+        return result(response)
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>',methods=['delete'])
@@ -64,9 +64,12 @@ def delete_all(u_path):
     try:
         url = api_url+u_path
         response = requests.delete(url=url,headers=headers())
-        return jsonify(response.json()),response.status_code
+        return result(response)
     except:
-        return jsonify(response.json()),response.status_code
+        return result(response)
+
+def result(response:requests.Response):
+    return jsonify(response.json()),response.status_code
 
 if __name__=='__main__':
     app.run(debug=True)
